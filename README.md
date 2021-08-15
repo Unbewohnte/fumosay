@@ -36,5 +36,6 @@ compile for your OS && Architecture
 - ❌ Add more fumos
 - ❌ Make it available to use other fumos
 - ❌ Improve message {box|bubble}
+- ❌ Embed fumofiles or take care of ways of locating them
 - ❌ Create a {deb|rpm} package
 - ❌ Make an `install.sh` script
