@@ -1,6 +1,17 @@
 # fumosay
 ## Like cowsay, but with soft friends (ᗜˬᗜ)
-
+```
+    __        __       <⑨ There are no buses in Gensokyo ⑨>
+   |  \      /  |    ()
+   |   \____/   | ()
+   |__// V  \\__|
+    /|| ᗜ ᗜ || \
+    \_\\_︶_//_/
+       jj⑨lll
+   ()_/@V@V@V\_()
+     /@V@V@V@V\
+     (_)-----(_)
+```
 ---
 
 ## Compile
