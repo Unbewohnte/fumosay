@@ -14,7 +14,9 @@
 ```
 ---
 
-## Compile
+# Installation
+
+## Compile it yourself
 install Rust
 - [installation instructions](https://www.rust-lang.org/tools/install)
 
@@ -30,8 +32,22 @@ compile for your OS && Architecture
 
 **or**
 
-## Download a pre-compiled version
+## Download a pre-compiled version (only amd64 Linux and Windows)
 - [Download a version of your choice](https://github.com/Unbewohnte/fumosay/releases)
+
+## After compilation|downloading
+
+create a directory where the program will 'sit' 
+- `mkdir $HOME/fumosay`
+
+retrieve the executable and fumofiles and move them there  
+- `mv fumosay/target/release/fumo $HOME/fumosay/ && mv fumofiles $HOME/fumosay`
+
+
+**Now you have fumosay installed !**
+
+The next possible step would probably be to add this directory to the $PATH environment variable.
+
 
 ---
 
@@ -45,8 +61,8 @@ compile for your OS && Architecture
 ## TODO list
 
 - ❌ Add more fumos
-- ❌ Make it available to use other fumos
+- ❌ Make it possible to use other fumos
 - ❌ Improve message {box|bubble}
-- ❌ Embed fumofiles or take care of ways of locating them
+- somewhat ✅ Embed fumofiles or take care of ways of locating them
 - ❌ Create a {deb|rpm} package
 - ❌ Make an `install.sh` script
