@@ -7,7 +7,7 @@ const MESSAGE_INDICATOR: &str = "!message";
 /// Fumofile name of the default fumo
 const FUMO_DEFAULT: &str = "fumo.fumo"; 
 /// Default directory where fumofiles are placed
-const FUMOFILES_DIR: &str = "/usr/share/fumosay/fumofiles/";
+const DEFAULT_FUMOFILES_DIR: &str = "/usr/share/fumosay/fumofiles/";
 
 /// Returns a resulting string with `MESSAGE_INDICATOR` replaced with given
 /// `message`. If `MESSAGE_INDICATOR` is not present in fumofile - the
@@ -22,7 +22,7 @@ fn process_message(fumofile_contents:  &mut String, message: &str) -> String {
 fn main() {
     // get command line arguments
     let matches = App::new("fumosay")
-        .version("0.3.1")
+        .version("0.4.0")
         .author("Unbewohnte | Nikolay Kasyanov <https://github.com/Unbewohnte>")
         .about("cowsay, but with soft friends")
         .arg(
@@ -43,7 +43,15 @@ fn main() {
             .help("look for fumofiles in given directory instead")
             .takes_value(true)
             .required(false)
-            .default_value(FUMOFILES_DIR)
+            .default_value(DEFAULT_FUMOFILES_DIR)
+        )
+        .arg(
+            Arg::with_name("list_fumos")
+            .short("l")
+            .long("list_fumos")
+            .help("lists all fumofiles in the default directory instead")
+            .takes_value(false)
+            .required(false)
         )
         .arg(
             Arg::with_name("message")
@@ -51,10 +59,21 @@ fn main() {
             .long("message")
             .help("set a message to print")
             .takes_value(true)
-            .required(true)
             .index(1)
             .multiple(true)
         ).get_matches();
+
+    // check for list_fumos flag.
+    if matches.is_present("list_fumos") {
+        // list fumofiles and exit
+        let fumofiles = fs::read_dir(DEFAULT_FUMOFILES_DIR).expect("Could not read default fumofiles directory");
+        for entry in fumofiles {
+            let file = entry.unwrap();
+            let filename = file.file_name();
+            print!("{:?}\n", filename);
+        }
+        std::process::exit(0);
+    }
 
     // process fumofiles directory
     
@@ -69,14 +88,14 @@ fn main() {
     let mut fumofile_contents: String = fs::read_to_string(fumofile_path).expect("Could not find a fumofile!");
     
     // process the message
-    let message_values = matches.values_of("message").unwrap();
+    let message_values = matches.values_of("message").expect("No message provided");
     let message_vec: Vec<&str> = message_values.collect();
     let joined_message = message_vec.join(" ");
 
-    // parse the file and get the resulting string
-    let message: String = process_message(&mut fumofile_contents, joined_message.as_str());
+    // parse the file, insert fiven message and get the resulting string
+    let fumosay: String = process_message(&mut fumofile_contents, joined_message.as_str());
     
-    println!("{}", message);
+    println!("{}", fumosay);
 }
 
 
