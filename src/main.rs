@@ -22,7 +22,7 @@ fn process_message(fumofile_contents:  &mut String, message: &str) -> String {
 fn main() {
     // get command line arguments
     let matches = App::new("fumosay")
-        .version("0.3.0")
+        .version("0.3.1")
         .author("Unbewohnte | Nikolay Kasyanov <https://github.com/Unbewohnte>")
         .about("cowsay, but with soft friends")
         .arg(
@@ -68,8 +68,13 @@ fn main() {
     // read fumofile
     let mut fumofile_contents: String = fs::read_to_string(fumofile_path).expect("Could not find a fumofile!");
     
+    // process the message
+    let message_values = matches.values_of("message").unwrap();
+    let message_vec: Vec<&str> = message_values.collect();
+    let joined_message = message_vec.join(" ");
+
     // parse the file and get the resulting string
-    let message: String = process_message(&mut fumofile_contents, matches.value_of("message").unwrap());
+    let message: String = process_message(&mut fumofile_contents, joined_message.as_str());
     
     println!("{}", message);
 }
