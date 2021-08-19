@@ -1,11 +1,13 @@
 use std::fs;
-use std::env;
+use std::path::Path;
 use clap::{Arg, App}; 
 
 /// Indicator of where the message should be in fumofile
-pub const MESSAGE_INDICATOR: &str = "!message";
+const MESSAGE_INDICATOR: &str = "!message";
 /// Fumofile name of the default fumo
-pub const FUMO_DEFAULT: &str = "fumo.fumo"; 
+const FUMO_DEFAULT: &str = "fumo.fumo"; 
+/// Default directory where fumofiles are placed
+const FUMOFILES_DIR: &str = "/usr/share/fumosay/fumofiles/";
 
 /// Returns a resulting string with `MESSAGE_INDICATOR` replaced with given
 /// `message`. If `MESSAGE_INDICATOR` is not present in fumofile - the
@@ -30,7 +32,19 @@ fn main() {
             .value_name("fumofile")
             .help("choose another fumofumo to print")
             .takes_value(true)
-            .required(false))
+            .required(false)
+            .default_value(FUMO_DEFAULT)
+        )
+        .arg(
+            Arg::with_name("fumofiles_directory")
+            .short("d")
+            .long("fumofiles_directory")
+            .value_name("fumofiles_directory_path")
+            .help("look for fumofiles in given directory instead")
+            .takes_value(true)
+            .required(false)
+            .default_value(FUMOFILES_DIR)
+        )
         .arg(
             Arg::with_name("message")
             .short("m")
@@ -42,17 +56,15 @@ fn main() {
             .multiple(true)
         ).get_matches();
 
-    // default path to the fumofile
-
-    // grab path to exe
-    let executable_path = env::current_exe().expect("Could not get current exe`s path!");
-    // remove the last bit (exe filename)
-    let executable_dir = executable_path.parent().expect("Could not get exe`s parent directory !");
-    // local path to the default fumofile
-    let fumofile_default_path = std::path::Path::new("fumofiles").join(FUMO_DEFAULT);
-    // add them together
-    let fumofile_path = executable_dir.join(fumofile_default_path);
-
+    // process fumofiles directory
+    
+    // directory with all fumofiles
+    let new_fumofiles_dir = matches.value_of("fumofiles_directory").unwrap();
+    // name of the fumofile to work with
+    let fumofile_name = matches.value_of("fumo").unwrap();
+    // the whole path to the selected fumo
+    let fumofile_path = Path::new(&new_fumofiles_dir).join(fumofile_name);
+    
     // read fumofile
     let mut fumofile_contents: String = fs::read_to_string(fumofile_path).expect("Could not find a fumofile!");
     

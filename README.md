@@ -16,7 +16,7 @@
 
 # Installation
 
-## Compile it yourself
+## "Compile it yourself" way
 install Rust
 - [installation instructions](https://www.rust-lang.org/tools/install)
 
@@ -29,32 +29,46 @@ cd into cloned repo
 compile for your OS && Architecture
 - `cargo build --release`
 
+move compiled executable to the current directory
+- `mv target/release/fumosay .` or `mv target/[target_name]/release/fumosay .`
 
 **or**
 
-## Download a pre-compiled version (only amd64 Linux and Windows)
+## "Download a pre-compiled version (Linux amd64 only)" way
 - [Download a version of your choice](https://github.com/Unbewohnte/fumosay/releases)
+
+unzip
+- `unzip [zip_archive_name]` or `7z x [7z_archive_name]`
+
+cd into unzipped directory
+- `cd fumosay/`
 
 ## After compilation|downloading
 
-create a directory where the program will 'sit' 
-- `mkdir $HOME/fumosay`
-
-retrieve the executable and fumofiles and move them there  
-- `mv fumosay/target/release/fumo $HOME/fumosay/ && mv fumofiles $HOME/fumosay`
-
+run installation script
+- `chmod +x install.sh && sudo ./install.sh`
+**binary file and fumofiles must be in the same directory as install.sh !**
 
 **Now you have fumosay installed !**
-
-The next possible step would probably be to add this directory to the $PATH environment variable.
-
 
 ---
 
 ## Use
 ```
-./fumosay [message]
+fumosay message_here
 ```
+prints a message with a default fumo.fumo template
+
+```
+fumosay -f mini.fumo message_here
+```
+prints a message with a mini.fumo template. You can add your own fumofiles
+in /usr/share/fumosay/fumofiles/ and use them with -f flag
+
+```
+fumosay -d path/to/your/fumofiles/ -f your_fumo.fumo fumofumo
+```
+uses a non-default path to fumofiles and a custom fumofile
 
 ---
 
