@@ -53,7 +53,7 @@ run installation script
 
 ---
 
-## Use
+# Use
 ```
 fumosay message_here
 ```
@@ -72,11 +72,10 @@ uses a non-default path to fumofiles and a custom fumofile
 
 ---
 
-## TODO list
+# TODO list
 
-- ❌ Add more fumos
-- ❌ Make it possible to use other fumos
-- ❌ Improve message {box|bubble}
-- somewhat ✅ Embed fumofiles or take care of ways of locating them
-- ❌ Create a {deb|rpm} package
-- ❌ Make an `install.sh` script
+- Add more fumos
+- ~~Make it possible to use other fumos~~
+- Improve message {box|bubble}
+- ~~Embed fumofiles or take care of ways of locating them~~
+- ~~Make an `install.sh` script~~
