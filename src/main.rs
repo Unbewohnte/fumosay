@@ -22,7 +22,7 @@ fn process_message(fumofile_contents:  &mut String, message: &str) -> String {
 fn main() {
     // get command line arguments
     let matches = App::new("fumosay")
-        .version("0.4.0")
+        .version("0.4.1")
         .author("Unbewohnte | Nikolay Kasyanov <https://github.com/Unbewohnte>")
         .about("cowsay, but with soft friends")
         .arg(
