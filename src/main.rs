@@ -5,7 +5,7 @@ use clap::{Arg, App};
 /// Indicator of where the message should be in fumofile
 const MESSAGE_INDICATOR: &str = "!message";
 /// Fumofile name of the default fumo
-const FUMO_DEFAULT: &str = "fumo.fumo"; 
+const FUMO_DEFAULT: &str = "cirno.fumo"; 
 /// Default directory where fumofiles are placed
 const DEFAULT_FUMOFILES_DIR: &str = "/usr/share/fumosay/fumofiles/";
 
