@@ -1,8 +1,8 @@
 #!/bin/bash
 # fumosay installation script
 
-FUMOSAY_BIN_DIR_PATH=/usr/bin/
-FUMOFILES_DIR_PATH=/usr/share/fumosay/fumofiles/
+FUMOSAY_BIN_DIR_PATH=/usr/local/bin/
+FUMOFILES_DIR_PATH=/usr/local/share/fumosay/fumofiles/
 
 # create directories
 mkdir -p $FUMOSAY_BIN_DIR_PATH && mkdir -p $FUMOFILES_DIR_PATH

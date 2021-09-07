@@ -7,7 +7,7 @@ const MESSAGE_INDICATOR: &str = "!message";
 /// Fumofile name of the default fumo
 const FUMO_DEFAULT: &str = "cirno.fumo"; 
 /// Default directory where fumofiles are placed
-const DEFAULT_FUMOFILES_DIR: &str = "/usr/share/fumosay/fumofiles/";
+const DEFAULT_FUMOFILES_DIR: &str = "/usr/local/share/fumosay/fumofiles/";
 
 /// Returns a resulting string with `MESSAGE_INDICATOR` replaced with given
 /// `message`. If `MESSAGE_INDICATOR` is not present in fumofile - the
@@ -22,7 +22,7 @@ fn process_message(fumofile_contents:  &mut String, message: &str) -> String {
 fn main() {
     // get command line arguments
     let matches = App::new("fumosay")
-        .version("0.4.1")
+        .version("0.4.2")
         .author("Unbewohnte | Nikolay Kasyanov <https://github.com/Unbewohnte>")
         .about("cowsay, but with soft friends")
         .arg(
