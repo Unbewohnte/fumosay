@@ -14,7 +14,7 @@ const DEFAULT_FUMOFILES_DIR: &str = "/usr/local/share/fumosay/fumofiles/";
 /// `message` will be added on the new line at the end of the fumofile. 
 fn process_message(fumofile_contents:  &mut String, message: &str) -> String {
     if fumofile_contents.contains(MESSAGE_INDICATOR) {
-        return fumofile_contents.replace(MESSAGE_INDICATOR,message);
+        return fumofile_contents.replace(MESSAGE_INDICATOR, message);
     }
     return format!("{}\n{}", fumofile_contents, message);
 }
