@@ -1,5 +1,5 @@
 /*
-Copyright © 2021 Kasyanov Nikolay Alexeevich (Unbewohnte (me@unbewohnte.xyz))
+Copyright © 2021 Kasyanov Nikolay Alexeyevich (Unbewohnte (me@unbewohnte.xyz))
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -67,7 +67,7 @@ class Fumo {
 
 int main(int argc, char *argv[]) {
     const std::string VERSION = "0.4.4";
-    const std::string ABOUT = "fumosay\ncowsay, but with soft friends\n\nWritten by Kasyanov Nikolay Alexeevich (Unbewohnte (me@unbewohnte.xyz))";
+    const std::string ABOUT = "fumosay\ncowsay, but with soft friends\n\nWritten by Kasyanov Nikolay Alexeyevich (Unbewohnte (me@unbewohnte.xyz))";
     const std::string HELP = "fumosay [OPTION(s)...] [MESSAGE]\n\nOptions:\n-v --version - print version text and exit\n-l --list - list available fumos and exit\n-h --help - print this message and exit\n-f --fumo - specify another fumo to print\n-d --directory - temporarily change fumofiles directory to look fumofiles in\n";
 
 
