@@ -18,7 +18,7 @@
 
 ## "Compile it yourself" way
 clone this repository
-- `git clone https://github.com/Unbewohnte/fumosay`
+- `git clone http://unbewohnte.xyz:3000/Unbewohnte/fumosay`
 
 cd into cloned repo
 - `cd fumosay/`
@@ -30,7 +30,7 @@ compile
 **or**
 
 ## "Download a pre-compiled version (Linux amd64 only)" way
-- [Download a version of your choice](https://github.com/Unbewohnte/fumosay/releases)
+- [Download a version of your choice](http://unbewohnte.xyz:3000/Unbewohnte/fumosay/releases)
 
 unzip
 - `unzip [zip_archive_name]`
