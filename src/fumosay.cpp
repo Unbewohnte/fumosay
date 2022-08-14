@@ -1,5 +1,5 @@
 /*
-Copyright © 2021 Kasyanov Nikolay Alexeyevich (Unbewohnte (me@unbewohnte.xyz))
+Copyright © 2021, 2022 Kasyanov Nikolay Alexeyevich (Unbewohntes)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -21,24 +21,15 @@ class Fumo {
     std::string m_fumotext;
 
     public:
-    // Opens specified fumofile if present and reads it
-    Fumo(std::string fumofile, std::string fumofiles_path) {
-        std::string path = fumofiles_path + "/" + fumofile;
-        
+    // Opens specified fumofile
+    Fumo(std::string fumo_path) {
         std::fstream m_fumofile;
-        m_fumofile.open(path, std::ios_base::in);
+        m_fumofile.open(fumo_path, std::ios_base::in);
         if (!m_fumofile) {
-            // could not open specified fumofile
-            // try to open the default one
-            path = fumofiles_path + "/" + m_default_fumofile;
-            m_fumofile.open(path, std::ios_base::in);
-            if (!m_fumofile) {
-                // if THIS didn`t help - raise an error
-                throw "Could not open fumofile";
-            };
+            throw "Could not open fumofile";
         };
 
-        // read the whole fumofile
+        // read whole fumofile
         std::string line;
         while (std::getline(m_fumofile, line)) {
             m_fumotext += line + "\n";
@@ -49,7 +40,7 @@ class Fumo {
 
     ~Fumo() {};
 
-    // parses already present fumotext and inserts given message. Prints fumosay 
+    // Inserts given message and prints it to the standart output 
     void say(std::string message) {
         if (m_fumotext.find(m_message_identificator) == std::string::npos) {
             // no identificator found. Inserting message on the first line
@@ -66,12 +57,27 @@ class Fumo {
 };
 
 int main(int argc, char *argv[]) {
-    const std::string VERSION = "0.4.4";
-    const std::string ABOUT = "fumosay\ncowsay, but with soft friends\n\nWritten by Kasyanov Nikolay Alexeyevich (Unbewohnte (me@unbewohnte.xyz))";
-    const std::string HELP = "fumosay [OPTION(s)...] [MESSAGE]\n\nOptions:\n-v --version - print version text and exit\n-l --list - list available fumos and exit\n-h --help - print this message and exit\n-f --fumo - specify another fumo to print\n-d --directory - temporarily change fumofiles directory to look fumofiles in\n";
+    const std::string VERSION = "0.4.5";
 
+    const std::string ABOUT = "\
+fumosay\n\
+cowsay, but with soft friends\n\n\
+(c) Kasyanov Nikolay Alexeyevich (Unbewohnte)";
+    
+    const std::string HELP = "\
+fumosay [OPTION(s)...] [MESSAGE]\n\n\
+Options:\n\
+-v --version - print version text and exit\n\
+-l --list - list available fumos and exit\n\
+-h --help - print this message and exit\n\
+-f --fumo - specify path to another fumo to print\n";
 
-    std::string fumofiles_dir = "/usr/local/share/fumosay/fumofiles";
+    std::string fumofiles_dir;
+    #ifdef _WIN32
+        fumofiles_dir = "/usr/local/share/fumosay/fumofiles"; 
+    #elseif
+        fumofiles_dir = "./fumofiles";
+    #endif
     std::string fumoname = "cirno.fumo";
 
     if (argc < 2) {
@@ -84,21 +90,20 @@ int main(int argc, char *argv[]) {
             // print version info
             std::cout << VERSION << std::endl << std::endl << ABOUT << std::endl;
             return 0;
-
-        } else if (strcmp(argv[i], "-l") == 0 || strcmp(argv[i], "--list") == 0) {
+        }
+        else if (strcmp(argv[i], "-l") == 0 || strcmp(argv[i], "--list") == 0) {
             // print available fumos in the default fumofiles directory
             for (const auto &entry : std::filesystem::directory_iterator(fumofiles_dir)) {
                 std::cout << entry.path().filename() << std::endl;
             };
-
             return 0;
-
-        } else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
+        } 
+        else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
             // print help infos
             std::cout << HELP << std::endl;
             return 0;
-
-        } else if (strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--fumo") == 0) {
+        }
+        else if (strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--fumo") == 0) {
             // use another fumo
             if (i+1 >= argc-1) {
                 return 1;
@@ -106,10 +111,8 @@ int main(int argc, char *argv[]) {
 
             fumoname = argv[i+1];
             i++;
-
-            continue;
-
-        } else if (strcmp(argv[i], "-d") == 0 || strcmp(argv[i], "--directory") == 0) {
+        }
+        else if (strcmp(argv[i], "-d") == 0 || strcmp(argv[i], "--directory") == 0) {
             // temporarily change fumofiles directory to look fumofiles in
             if (i+1 >= argc-1 || !std::filesystem::exists(std::filesystem::path(argv[i+1]))){
                 return 1;
@@ -117,17 +120,16 @@ int main(int argc, char *argv[]) {
 
             fumofiles_dir = argv[i+1];
             i++;
-
-            continue;
-        };
-
-        message += argv[i];
-        if (i != argc-1) {
-            message += " ";
-        };
+        }
+        else {
+            message += argv[i];
+            if (i != argc-1) {
+                message += " ";
+            };
+        }
     };
 
-    Fumo fumo(fumoname, fumofiles_dir);
+    Fumo fumo(std::filesystem::path(fumofiles_dir) / fumoname);
     fumo.say(message);
 
     return 0;
