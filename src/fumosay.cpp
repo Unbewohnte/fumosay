@@ -74,9 +74,9 @@ Options:\n\
 
     std::string fumofiles_dir;
     #ifdef _WIN32
+        fumofiles_dir = ".\\fumofiles";
+    #else
         fumofiles_dir = "/usr/local/share/fumosay/fumofiles"; 
-    #elseif
-        fumofiles_dir = "./fumofiles";
     #endif
     std::string fumoname = "cirno.fumo";
 
